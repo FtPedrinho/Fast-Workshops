@@ -3,7 +3,7 @@ API REST e aplicação web para gerenciamento e análise de participação em wo
 
 ## Arquitetura
 ```plaintext
-workshop-participation/
+Fast-Workshops/
 ├── backend/
 │   └── WorkshopApi/
 │       ├── Controllers/
