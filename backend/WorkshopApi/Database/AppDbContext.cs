@@ -35,8 +35,7 @@ public class AppDbContext : DbContext // Herança do DbContext, permitindo geren
     {
         modelBuilder.Entity<ColaboradorModel>(entity =>
         {
-            entity.HasKey(colaborador => colaborador.Id)
-                .ValueGeneratedOnAdd();
+            entity.HasKey(colaborador => colaborador.Id);
 
             entity.Property(colaborador => colaborador.Nome)
                 .IsRequired()

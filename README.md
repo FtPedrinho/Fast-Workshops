@@ -1,5 +1,29 @@
-# Fast-Workshops
-API REST e aplicação web para gerenciamento e análise de participação em workshops.
+# Fast Workshops API
+
+API REST desenvolvida em ASP.NET Core para o gerenciamento de workshops e o rastreamento da participação de colaboradores.
+
+O projeto foi desenvolvido como solução para o desafio de Rastreamento de Participação em Workshops da FAST Soluções.
+
+## Funcionalidades
+
+- Cadastro, consulta, atualização e exclusão de workshops;
+- Cadastro, consulta, atualização e exclusão de colaboradores;
+- Registro de participação de colaboradores em workshops;
+- Consulta das participações de um workshop;
+- Validação de relacionamentos entre colaboradores, workshops e participações;
+- Prevenção de participação duplicada no mesmo workshop;
+- Persistência dos dados utilizando Entity Framework Core e SQL Server;
+- Documentação e testes da API.
+
+## Tecnologias
+
+- .NET 8
+- ASP.NET Core
+- Entity Framework Core
+- SQL Server
+- xUnit
+- Swagger / OpenAPI
+- Git
 
 ## Arquitetura
 ```plaintext
@@ -9,34 +33,39 @@ Fast-Workshops/
 │       ├── Controllers/
 │       │   ├── WorkshopsController.cs
 │       │   ├── ColaboradoresController.cs
-│       │   └── PresencasController.cs
 │       ├── Services/
 │       │   ├── WorkshopService.cs
 │       │   ├── ColaboradorService.cs
-│       │   └── PresencaService.cs
 │       ├── Repositories/
 │       │   ├── WorkshopRepository.cs
 │       │   ├── ColaboradorRepository.cs
-│       │   └── PresencaRepository.cs
+│       │   └── ParticipacaoRepository.cs
 │       ├── Models/
-│       │   ├── Workshop.cs
-│       │   ├── Colaborador.cs
-│       │   └── Presenca.cs
+│       │   ├── WorkshopModel.cs
+│       │   ├── ColaboradorModel.cs
+│       │   └── ParticipacaoModel.cs
 │       ├── DTOs/
 │       │   ├── WorkshopDto.cs
 │       │   ├── ColaboradorDto.cs
-│       │   └── PresencaDto.cs
+│       │   └── ParticipacaoDto.cs
 │       ├── Database/
 │       │   └── AppDbContext.cs
 │       ├── Program.cs
 │       └── appsettings.json
 ├── frontend/
-│   └── src/
-│       ├── components/
-│       ├── pages/
-│       ├── services/
-│       │   └── api.js
-│       ├── App.jsx
-│       └── main.jsx
+│   src/
+|   ├── components/
+|   │   ├── Navbar.js
+|   │   └── WorkshopCard.js
+|   ├── pages/
+|   │   ├── colaboradores.js
+|   │   ├── workshops.js
+|   │   └── workshopDetalhes.js
+|   ├── services/
+|   │   └── api.js
+|   ├── mocks/
+|   │   └── data.js
+|   ├── main.js
+|   └── style.css
 └── README.md
 ```
