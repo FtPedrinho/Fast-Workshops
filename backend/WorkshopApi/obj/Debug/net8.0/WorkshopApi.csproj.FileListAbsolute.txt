@@ -1,0 +1,9 @@
+C:\Users\User\Fast-Workshops\backend\WorkshopApi\obj\Debug\net8.0\WorkshopApi.csproj.AssemblyReference.cache
+C:\Users\User\Fast-Workshops\backend\WorkshopApi\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\User\Fast-Workshops\backend\WorkshopApi\obj\Debug\net8.0\WorkshopApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Fast-Workshops\backend\WorkshopApi\obj\Debug\net8.0\WorkshopApi.AssemblyInfoInputs.cache
+C:\Users\User\Fast-Workshops\backend\WorkshopApi\obj\Debug\net8.0\WorkshopApi.AssemblyInfo.cs
+C:\Users\User\Fast-Workshops\backend\WorkshopApi\obj\Debug\net8.0\WorkshopApi.csproj.CoreCompileInputs.cache
+C:\Users\User\Fast-Workshops\backend\WorkshopApi\obj\Debug\net8.0\WorkshopApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\User\Fast-Workshops\backend\WorkshopApi\obj\Debug\net8.0\WorkshopApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\User\Fast-Workshops\backend\WorkshopApi\obj\Debug\net8.0\WorkshopApi.sourcelink.json
