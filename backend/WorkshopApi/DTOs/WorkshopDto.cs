@@ -12,5 +12,5 @@ public class WorkshopDto
     public string? Descricao { get; set; } // Propriedade nula.
 
     public IEnumerable<ColaboradorDto> Participantes { get; set; }
-        = Enumerable.Empty<ColaboradorDto>();
+        = Enumerable.Empty<ColaboradorDto>(); // Lista de colaboradores.
 }

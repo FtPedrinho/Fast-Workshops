@@ -29,13 +29,13 @@ public class WorkshopRepository
     // Operação que retorna um workshop específico do banco de dados, baseado no id.
 
     public async Task<WorkshopModel?> GetByIdAsync(int id)
-{
+    {
         return await _context.Workshops
             .AsNoTracking()
             .Include(workshop => workshop.Participacoes)
             .ThenInclude(participacao => participacao.Colaborador)
             .FirstOrDefaultAsync(workshop => workshop.Id == id);
-}
+    }
 
     // Operação que cria um novo workshop no banco de dados.
     public async Task<WorkshopModel> CreateAsync(WorkshopModel workshop)

@@ -29,14 +29,15 @@ public class ParticipacoesController : ControllerBase
         return Ok(participacoes);
     }
 
-    [HttpPost] // Criação da participação.
-    public async Task<ActionResult> Create(
+    [HttpPost]
+    public async Task<ActionResult<ParticipacaoDto>> Create(
         int workshopId,
         ParticipacaoCreateDto participacaoDto)
     {
-        var result = await _participacaoService.CreateAsync(
-            workshopId,
-            participacaoDto.ColaboradorId);
+        var (result, participacao) =
+            await _participacaoService.CreateAsync(
+                workshopId,
+                participacaoDto.ColaboradorId);
 
         return result switch
         {
@@ -59,7 +60,9 @@ public class ParticipacoesController : ControllerBase
                 }),
 
             ParticipacaoCreateResult.Created =>
-                NoContent(),
+                Created(
+                    $"/api/workshops/{workshopId}/participacoes/{participacao!.ColaboradorId}",
+                    participacao),
 
             _ => StatusCode(500)
         };

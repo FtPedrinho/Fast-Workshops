@@ -1,4 +1,3 @@
-// Importação de dependências.
 using WorkshopApi.DTOs;
 using WorkshopApi.Models;
 using WorkshopApi.Repositories;
@@ -7,10 +6,11 @@ namespace WorkshopApi.Services;
 
 public class ParticipacaoService
 {
-    // Service depende dos repositories de colaboradores, participação e workshops.
     private readonly ParticipacaoRepository _participacaoRepository;
     private readonly ColaboradorRepository _colaboradorRepository;
     private readonly WorkshopRepository _workshopRepository;
+
+    // Injeção de dependências com todos os repositorios.
 
     public ParticipacaoService(
         ParticipacaoRepository participacaoRepository,
@@ -22,17 +22,18 @@ public class ParticipacaoService
         _workshopRepository = workshopRepository;
     }
 
+    // Busca por participações no workshop Id.
     public async Task<IEnumerable<ParticipacaoDto>> GetByWorkshopIdAsync(
         int workshopId)
     {
         var participacoes =
             await _participacaoRepository.GetByWorkshopIdAsync(workshopId);
 
-        return participacoes.Select(MapToDto); 
+        return participacoes.Select(MapToDto);
     }
 
-    // Operação de criar uma nova participação (ele verifica se a existencia das entidades e se a relação já existe)
-    public async Task<ParticipacaoDto?> CreateAsync(
+    // Criação de uma nova participação
+    public async Task<(ParticipacaoCreateResult Result, ParticipacaoDto? Participacao)> CreateAsync(
         int workshopId,
         int colaboradorId)
     {
@@ -40,13 +41,13 @@ public class ParticipacaoService
             await _workshopRepository.GetByIdAsync(workshopId);
 
         if (workshop is null)
-            return null;
+            return (ParticipacaoCreateResult.WorkshopNotFound, null);
 
         var colaborador =
             await _colaboradorRepository.GetByIdAsync(colaboradorId);
 
         if (colaborador is null)
-            return null;
+            return (ParticipacaoCreateResult.ColaboradorNotFound, null);
 
         var participacaoExistente =
             await _participacaoRepository.GetByIdsAsync(
@@ -54,7 +55,7 @@ public class ParticipacaoService
                 colaboradorId);
 
         if (participacaoExistente is not null)
-            return null;
+            return (ParticipacaoCreateResult.AlreadyExists, null);
 
         var participacao = new ParticipacaoModel
         {
@@ -62,13 +63,15 @@ public class ParticipacaoService
             ColaboradorId = colaboradorId
         };
 
-        var createdParticipacao =
+        var created =
             await _participacaoRepository.CreateAsync(participacao);
 
-        return MapToDto(createdParticipacao);
+        var dto = MapToDto(created);
+
+        return (ParticipacaoCreateResult.Created, dto);
     }
 
-    // Método voltado para a operação de deletar
+    // Deletando uma participação.
     public async Task<bool> DeleteAsync(
         int workshopId,
         int colaboradorId)
@@ -86,7 +89,7 @@ public class ParticipacaoService
         return true;
     }
 
-    // Services mapeia o Model para DTO, utilizando colaborador e workshop.
+    // Service mapeia Model para DTO.
     private static ParticipacaoDto MapToDto(
         ParticipacaoModel participacao)
     {

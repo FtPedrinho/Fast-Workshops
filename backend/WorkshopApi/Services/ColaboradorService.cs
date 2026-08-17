@@ -1,4 +1,3 @@
-// Service precisa entender o que é um DTO, um Model e um entity.
 using WorkshopApi.DTOs;
 using WorkshopApi.Models;
 using WorkshopApi.Repositories;
@@ -9,36 +8,37 @@ public class ColaboradorService
 {
     private readonly ColaboradorRepository _colaboradorRepository;
 
-    // O service não conversa diretamente com o banco de dados, ele conversa com o Repository.
+    // Injeção de dependências em Repository. Ou seja, Service não se comunica com o banco de dados.
     public ColaboradorService(ColaboradorRepository colaboradorRepository)
     {
         _colaboradorRepository = colaboradorRepository;
     }
 
-    // O service é responsável por mapear os Models para DTOs e vice-versa.
+    // Operação para consultar todos os colaboradores.
     public async Task<IEnumerable<ColaboradorDto>> GetAllAsync()
     {
         var colaboradores = await _colaboradorRepository.GetAllAsync();
 
-        return colaboradores.Select(MapToDto); // Aplicação DRY para mapear cada colaborador para DTO.
+        return colaboradores.Select(MapToDto);
     }
 
+    // Operação de consultar colaborador por Id.
     public async Task<ColaboradorDto?> GetByIdAsync(int id)
     {
         var colaborador = await _colaboradorRepository.GetByIdAsync(id);
 
         return colaborador is null
             ? null
-            : MapToDto(colaborador); 
-            // O resultado pode ser nulo, então é necessário verificar antes de mapear para DTO.
+            : MapToDto(colaborador);
     }
 
-    // O service é responsável por mapear os Models para DTOs e vice-versa.
-    public async Task<ColaboradorDto> CreateAsync(ColaboradorDto colaboradorDto)
+    // operação de criar um novo colaborador.
+    public async Task<ColaboradorDto> CreateAsync(
+        ColaboradorCreateDto colaboradorDto)
     {
         var colaborador = new ColaboradorModel
         {
-            Nome = colaboradorDto.Nome
+            Nome = colaboradorDto.Nome.Trim()
         };
 
         var createdColaborador =
@@ -47,27 +47,29 @@ public class ColaboradorService
         return MapToDto(createdColaborador);
     }
 
-    // Entender se a atualização foi bem-sucedida ou não é responsabilidade do service.
+    // Operação de atualizar um colaborador existente.
     public async Task<bool> UpdateAsync(
         int id,
-        ColaboradorDto colaboradorDto)
+        ColaboradorUpdateDto colaboradorDto)
     {
-        var colaborador = await _colaboradorRepository.GetByIdAsync(id);
+        var colaborador =
+            await _colaboradorRepository.GetByIdAsync(id);
 
         if (colaborador is null)
             return false;
 
-        colaborador.Nome = colaboradorDto.Nome;
+        colaborador.Nome = colaboradorDto.Nome.Trim();
 
         await _colaboradorRepository.UpdateAsync(colaborador);
 
         return true;
     }
 
-    // Mesma lógica do UpdateAsync.
+    // Deleta um colaborador existente.
     public async Task<bool> DeleteAsync(int id)
     {
-        var colaborador = await _colaboradorRepository.GetByIdAsync(id);
+        var colaborador =
+            await _colaboradorRepository.GetByIdAsync(id);
 
         if (colaborador is null)
             return false;
@@ -77,8 +79,9 @@ public class ColaboradorService
         return true;
     }
 
-    // Aqui é onde o service faz a conversão de Model para DTO.
-    private static ColaboradorDto MapToDto(ColaboradorModel colaborador)
+    // Service faz a conversão de Model para DTO.
+    private static ColaboradorDto MapToDto(
+        ColaboradorModel colaborador)
     {
         return new ColaboradorDto
         {
