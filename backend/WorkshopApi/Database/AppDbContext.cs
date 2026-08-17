@@ -13,11 +13,12 @@ public class AppDbContext : DbContext // Herança do DbContext, permitindo geren
     {
     }
 
-    public DbSet<ColaboradorModel> Colaboradores { get; set; } // Tabela de colaboradores no bd.
+    // Tabelas no bd
+    public DbSet<ColaboradorModel> Colaboradores { get; set; } 
 
-    public DbSet<WorkshopModel> Workshops { get; set; } // Tabela de workshops no bd.
+    public DbSet<WorkshopModel> Workshops { get; set; } 
 
-    public DbSet<ParticipacaoModel> Participacoes { get; set; } // Tabela de participantes no bd.
+    public DbSet<ParticipacaoModel> Participacoes { get; set; } 
 
     // O método seguinte configura as entidades e suas propriedades.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -75,7 +76,7 @@ public class AppDbContext : DbContext // Herança do DbContext, permitindo geren
                 .OnDelete(DeleteBehavior.Cascade); 
 
             entity.HasOne(participacao => participacao.Workshop)
-                .WithMany()
+                .WithMany(workshop => workshop.Participacoes)
                 .HasForeignKey(participacao => participacao.WorkshopId)
                 .OnDelete(DeleteBehavior.Cascade);
             // Utilizamos efeito cascata para que, ao deletar um colaborador ou um workshop, todas as participações dele sejam deletadas também.
