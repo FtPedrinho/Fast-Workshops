@@ -56,10 +56,14 @@ Fast-Workshops/
 │   src/
 |   ├── components/
 |   │   ├── Navbar.js
+|   │   ├── modal.js
+|   │   ├── confirmModal.js
+|   │   ├── CollaboratorCard.js
 |   │   └── WorkshopCard.js
 |   ├── pages/
 |   │   ├── colaboradores.js
 |   │   ├── workshops.js
+|   │   ├── dashboard.js
 |   │   └── workshopDetalhes.js
 |   ├── services/
 |   │   └── api.js
