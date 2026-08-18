@@ -73,13 +73,56 @@ Fast-Workshops/
 |   └── style.css
 └── README.md
 ```
+
+### API REST
+
+A API disponibiliza operações de CRUD para gerenciamento de workshops,
+colaboradores e participação dos colaboradores nos workshops.
+
+#### Workshops
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| `GET` | `/api/workshops` | Lista todos os workshops |
+| `GET` | `/api/workshops/{id}` | Consulta um workshop específico |
+| `POST` | `/api/workshops` | Cadastra um novo workshop |
+| `PUT` | `/api/workshops/{id}` | Atualiza um workshop existente |
+| `DELETE` | `/api/workshops/{id}` | Remove um workshop |
+
+#### Colaboradores
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| `GET` | `/api/colaboradores` | Lista todos os colaboradores |
+| `GET` | `/api/colaboradores/{id}` | Consulta um colaborador específico |
+| `POST` | `/api/colaboradores` | Cadastra um novo colaborador |
+| `PUT` | `/api/colaboradores/{id}` | Atualiza um colaborador existente |
+| `DELETE` | `/api/colaboradores/{id}` | Remove um colaborador |
+
+#### Participação
+
+A entidade `Participacao` representa o relacionamento entre um workshop e um
+colaborador, permitindo registrar e gerenciar a presença dos colaboradores
+nos workshops.
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| `GET` | `/api/workshops/{id}/participante/{id}` | Consulta a participação de um colaborador em um workshop |
+| `POST` | `/api/workshops/{id}/participante/{id}` | Registra a participação de um colaborador no workshop |
+| `PUT` | `/api/workshops/{id}/participante/{id}` | Atualiza a participação |
+| `DELETE` | `/api/workshops/{id}/participante/{id}` | Remove a participação do colaborador no workshop |
+
+
 ### Pré-requisitos
 
 #### Instale:
 
 .NET 8 SDK
+
 Node.js
+
 SQL Server
+
 EF Core CLI (dotnet-ef)
 
 #### Clone o projeto
@@ -155,6 +198,7 @@ dotnet restore
 O frontend utiliza:
 
 Vite 8.2.0 — servidor de desenvolvimento e build.
+
 Chart.js 4.5.1 — criação dos gráficos de participação.
 
 As dependências são instaladas automaticamente com:
